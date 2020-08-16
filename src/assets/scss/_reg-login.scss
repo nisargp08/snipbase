@@ -1,0 +1,72 @@
+.login-view {
+  background: $background;
+  height: 100vh;
+  color: $textDark;
+
+  .field:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  .register {
+    margin-top: 10rem;
+    background: white;
+    border-radius: 10px;
+  }
+
+  .left,
+  .right {
+    padding: 4.5rem;
+  }
+
+  .left {
+    border-right: 5px solid $background;
+  }
+
+  .left .title {
+    font-weight: 800;
+    letter-spacing: -2px;
+  }
+
+  .left .colored {
+    color: $brandColor;
+    font-weight: 500;
+    margin-top: 1rem !important;
+    letter-spacing: -1px;
+  }
+
+  .left p {
+    color: $textLight;
+    font-size: 1.15rem;
+  }
+
+  .right .title {
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+
+  .right .description {
+    margin-top: 1rem;
+    margin-bottom: 1rem !important;
+    color: $textLight;
+    font-size: 1.15rem;
+  }
+
+  .right small {
+    color: $textLight;
+  }
+
+  input {
+    font-size: 1rem;
+  }
+
+  input:focus {
+    border-color: $brandColor !important;
+    box-shadow: 0 0 0 1px $brandColor !important;
+  }
+
+  .fab,
+  .fas {
+    color: $textLight;
+    margin-right: 1rem;
+  }
+}

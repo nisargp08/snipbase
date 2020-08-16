@@ -16,7 +16,7 @@
                         </p>
                     </div>
                     <div class="column right has-text-centered">
-                        <h1 class="title is-4">Login</h1>
+                        <h1 class="title is-4">Sign Up</h1>
                         <p class="description">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit
                         </p>
@@ -24,7 +24,7 @@
                             <div class="field">
                                 <div class="control">
                                     <b-field>
-                                        <b-input type="email" v-model.trim="loginForm.email" placeholder="snipbase@email.com"></b-input>
+                                        <b-input type="text" v-model.trim="signupForm.name" placeholder="Snipbase Name"></b-input>
                                     </b-field>
                                 </div>
                             </div>
@@ -32,18 +32,25 @@
                             <div class="field">
                                 <div class="control">
                                     <b-field>
-                                        <b-input type="password" v-model.trim="loginForm.password" placeholder="******"></b-input>
+                                        <b-input type="email" v-model.trim="signupForm.email" placeholder="snipbase@email.com"></b-input>
                                     </b-field>
                                 </div>
                             </div>
-                            <b-button @click="login()" class="button is-block is-primary is-fullwidth is-medium">
-                                Log In
+
+                            <div class="field">
+                                <div class="control">
+                                    <b-field>
+                                        <b-input type="password" v-model.trim="signupForm.password" placeholder="******"></b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                            <b-button @click="signup()" class="button is-block is-primary is-fullwidth is-medium">
+                                Sign Up
                             </b-button>
                             <br />
                             <small>
                                 <div class="extras">
-                                    <a>Forgot Password</a><br />
-                                    <router-link to="/signup">Create an Account</router-link>
+                                   <p>Already have an account ? <router-link to="/login">Log in</router-link></p>
                                 </div>
                             </small>
                         </form>
@@ -67,20 +74,22 @@
 
 <script>
 export default {
-    name : "login",
+    name : "signup",
     data(){
         return {
-            loginForm : {
+            signupForm : {
+                name : '',
                 email : '',
                 password : ''
             }
         }
     },
     methods : {
-        login(){
-            this.$store.dispatch('login',{
-                email : this.loginForm.email,
-                password : this.loginForm.password
+        signup(){
+            this.$store.dispatch('signup',{
+                name : this.signupForm.name,
+                email : this.signupForm.email,
+                password : this.signupForm.password
             })
         }
     }

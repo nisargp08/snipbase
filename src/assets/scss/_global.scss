@@ -1,3 +1,31 @@
-*{
-    font-family: $primary-font;
+* {
+  font-family: $primary-font;
+}
+.error-msg {
+  color: red;
+}
+.navbar {
+  .navbar-start,
+  .navbar-end {
+    .navbar-dropdown {
+      .navbar-item {
+        &:hover {
+          background-color: #f5f5f5 !important;
+          color: #0a0a0a;
+        }
+      }
+    }
+    .navbar-item {
+      transition: all 0.3s ease;
+      &:hover {
+        background-color: $brandColor !important;
+        border-radius: 0.25rem;
+      }
+    }
+  }
+}
+.exact-active {
+  background: $brandColor;
+  border-radius: 0.25rem;
+  color: white;
 }

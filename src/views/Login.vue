@@ -42,7 +42,7 @@
                             <br />
                             <small>
                                 <div class="extras">
-                                    <a>Forgot Password</a><br />
+                                    <a @click="forgotPasswordToggle()">Forgot Password</a><br />
                                     <router-link to="/signup">Create an Account</router-link>
                                 </div>
                             </small>
@@ -61,19 +61,36 @@
                 </nav>
             </div>
         </div>
+        <!-- Forgot Password Modal -->
+        <!-- <forgot-password></forgot-password> -->
+        <b-modal :active.sync="showPasswordReset"
+            has-modal-card
+            trap-focus
+            :destroy-on-hide="false"
+            aria-role="dialog"
+            aria-modal>
+            <forgot-password></forgot-password>
+        </b-modal>
     </section>
 </div>
 </template>
 
 <script>
+import ForgotPassword from './ForgotPassword.vue'
+
 export default {
     name : "login",
+    components : {
+        ForgotPassword
+    },
     data(){
         return {
             loginForm : {
                 email : '',
                 password : ''
-            }
+            },
+            //To hide/show password reset component
+            showPasswordReset : false,
         }
     },
     methods : {
@@ -82,6 +99,9 @@ export default {
                 email : this.loginForm.email,
                 password : this.loginForm.password
             })
+        },
+        forgotPasswordToggle(){
+            this.showPasswordReset = !this.showPasswordReset;
         }
     }
 };

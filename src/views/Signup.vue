@@ -1,5 +1,5 @@
 <template>
-<div class="auth-view login-view">
+<div class="auth-view signup-view">
     <section class="container">
         <div class="columns is-multiline">
             <div class="column is-8 is-offset-2 register">

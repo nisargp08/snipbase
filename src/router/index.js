@@ -18,6 +18,15 @@ Vue.use(VueRouter)
     }
   },
   {
+    path : '/post/create',
+    name : 'Create Post',
+    component : () => import(/* webpackChunkName : "CreatePost"*/ '../views/Posts/CreatePost.vue'),
+    //Authenticated
+    meta : {
+      requiresAuth : true
+    }
+  },
+  {
     path : '/login',
     name : 'Login',
     component : () => import(/* webpackChunkName : "Login"*/ '../views/Login.vue'),

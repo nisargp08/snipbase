@@ -5,15 +5,33 @@ import router from '../router/index.js'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+//Firebase method to fetch all the posts - Realtime with .onSnapshot function
+fb.postsCollection.orderBy('createdOn','desc').onSnapshot(snapshot => {
+  //Retrieved post storage
+  let postsArray = []
+
+  snapshot.forEach(shot => {
+    let post = shot.data()
+    // post.id = shot.id
+    postsArray.push(post)
+  })
+
+  store.commit('setPosts',postsArray);
+});
+
+const store =  new Vuex.Store({
   state: {
     userProfile : {
 
-    }
+    },
+    posts : []
   },
   mutations: {
     setUserProfile(state,data){
       state.userProfile = data;
+    },
+    setPosts(state,posts){
+      state.posts = posts;
     }
   },
   actions: {
@@ -34,6 +52,17 @@ export default new Vuex.Store({
 
       //Fetch user profile and set in state
       dispatch('fetchUserProfile',user)
+    },
+    async createPost({state},post){
+      await fb.postsCollection.add({
+        createdOn : new Date(),
+        title : post.title,
+        content : post.content,
+        userId : fb.auth.currentUser.uid,
+        userName : state.userProfile.name,
+        comments : 0,
+        likes : 0
+      })
     },
     async fetchUserProfile({commit},user){
       //Fetch user profile
@@ -58,3 +87,4 @@ export default new Vuex.Store({
   modules: {
   }
 })
+export default store

@@ -5,7 +5,7 @@
             <div class="column is-8 is-offset-2 register">
                 <div class="columns">
                     <div class="column left">
-                        <h1 class="title is-1">Snipbase</h1>
+                        <h1 class="title is-1"><i class="fas fa-quidditch pr-1"></i>SnipBase</h1>
                         <h2 class="subtitle colored is-4">
                             Join the Snipbase community to unlock all features
                         </h2>

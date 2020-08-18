@@ -4,28 +4,40 @@
 .error-msg {
   color: red;
 }
+.brand-color{
+  color : $brandColor!important;
+}
 .navbar {
-  .navbar-start,
-  .navbar-end {
-    .navbar-dropdown {
-      .navbar-item {
-        &:hover {
-          background-color: #f5f5f5 !important;
-          color: #0a0a0a;
-        }
-      }
-    }
-    .navbar-item {
-      transition: all 0.3s ease;
-      &:hover {
-        background-color: $brandColor !important;
-        border-radius: 0.25rem;
-      }
+  .navbar-brand{
+    h3{
+      font-size: 24px;
+      font-weight: 700;
+      color: $brandColor;
     }
   }
+  // .navbar-start,
+  // .navbar-end {
+  //   .navbar-dropdown {
+  //     .navbar-item {
+  //       &:hover {
+  //         background-color: #f5f5f5 !important;
+  //         color: #0a0a0a;
+  //       }
+  //     }
+  //   }
+  //   .navbar-item {
+  //     transition: all 0.3s ease;
+  //     &:hover {
+  //       background-color: $brandColor !important;
+  //       border-radius: 0.25rem;
+  //     }
+  //   }
+  // }
 }
 .exact-active {
-  background: $brandColor;
-  border-radius: 0.25rem;
-  color: white;
+  // background: $brandColor;
+  // border-radius: 0.25rem;
+  // color: white;
+  background-color: #292929;
+    color: #fff;
 }

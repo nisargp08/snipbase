@@ -1,24 +1,26 @@
 <template>
 <div class="site-nav-component">
-    <b-navbar type="is-black" fixed-top shadow>
+    <b-navbar type="is-dark" fixed-top shadow>
         <!-- Brand Logo -->
         <template slot="brand">
             <b-navbar-item to="/" tag="router-link">
-                <h3>Snipbase</h3>
+                <h3><i class="fas fa-quidditch pr-1"></i>SnipBase</h3>
             </b-navbar-item>
         </template>
         <!-- Left Navigation items -->
         <template slot="start">
             <b-navbar-item to="/" tag="router-link" exact-active-class="exact-active">Dashboard</b-navbar-item>
+            <b-navbar-item :to="{name : 'Create Post'}" tag="router-link" exact-active-class="exact-active">Add Post</b-navbar-item>
         </template>
         <!-- Right Navigation items -->
         <template slot="end">
-            <b-navbar-dropdown label="Username">
+            <b-navbar-dropdown>
+                <template slot="label"><i class="fas fa-user pr-2"></i>Hi, John Doe</template>
                 <b-navbar-item to="/settings" tag="router-link" exact-active-class="exact-active">
-                    Settings
+                    <i class="fas fa-cog pr-2"></i>Settings
                 </b-navbar-item>
                 <b-navbar-item @click="logout">
-                    Logout
+                    <i class="fas fa-sign-out-alt pr-2"></i>Logout
                 </b-navbar-item>
             </b-navbar-dropdown>
         </template>

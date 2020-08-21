@@ -27,6 +27,11 @@ Vue.use(VueRouter)
     }
   },
   {
+    path : '/post/:id',
+    name : 'View Post',
+    component : () => import(/*webpackChunkName : "CreatePost"*/ '../views/Posts/Post.vue'),
+  },
+  {
     path : '/login',
     name : 'Login',
     component : () => import(/* webpackChunkName : "Login"*/ '../views/Login.vue'),

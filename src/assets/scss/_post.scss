@@ -1,0 +1,36 @@
+.post-component {
+  .author-image {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: -30px;
+    border: 3px solid $brandColor;
+    border-radius: 50%;
+  }
+  .media-center {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .media-content {
+    margin-top: 3rem;
+  }
+  .article {
+    margin-top: 6rem;
+  }
+  .article-title {
+    font-size: 2rem;
+    text-align: center;
+    // font-weight: lighter;
+    line-height: 2;
+  }
+  .article-subtitle {
+    color: #909aa0;
+    margin-bottom: 3rem;
+  }
+  .article-body {
+    line-height: 1.4;
+    margin: 0 6rem;
+  }
+}

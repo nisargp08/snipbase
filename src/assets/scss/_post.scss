@@ -13,17 +13,21 @@
     display: block;
     margin-bottom: 1rem;
   }
-  .media-content {
-    margin-top: 3rem;
-  }
   .article {
     margin-top: 6rem;
+    .media-content {
+      margin-top: 3rem;
+    }
   }
   .article-title {
-    font-size: 2rem;
     text-align: center;
     // font-weight: lighter;
-    line-height: 2;
+    @media only screen and (min-width : $tablet){
+      line-height : 2;
+    }
+    @media only screen and (max-width : $tablet){
+      line-height : 1.4;
+    }
   }
   .article-subtitle {
     color: #909aa0;
@@ -31,6 +35,13 @@
   }
   .article-body {
     line-height: 1.4;
-    margin: 0 6rem;
+    @media only screen and (min-width : $tablet){
+      margin: 0 6rem;
+    }
+  }
+  .comment-box{
+    .media{
+      align-items: flex-start;
+    }
   }
 }

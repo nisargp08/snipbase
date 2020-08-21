@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import {auth} from './firebase'
+import { auth } from './firebase'
 
 //Plugins
 import Buefy from 'buefy'
@@ -17,7 +17,7 @@ Vue.config.productionTip = false
 
 let app
 auth.onAuthStateChanged(user => {
-  if(!app){
+  if (!app) {
     app = new Vue({
       router,
       store,
@@ -25,8 +25,8 @@ auth.onAuthStateChanged(user => {
     }).$mount('#app')
   }
   //TO maintain state on page refresh/reload
-  if(user){
-    store.dispatch('fetchUserProfile',user)
+  if (user) {
+    store.dispatch('fetchUserProfile', user)
   }
 })
 

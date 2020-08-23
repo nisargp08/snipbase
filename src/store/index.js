@@ -34,6 +34,7 @@ const store = new Vuex.Store({
     },
   },
   actions: {
+    //Authentication Actions - Login,Signup,Logout
     async login({ dispatch }, form) {
       //sign user in
       const { user } = await fb.auth.signInWithEmailAndPassword(
@@ -53,11 +54,81 @@ const store = new Vuex.Store({
       //Create user profile object in userCollections
       await fb.usersCollection.doc(user.uid).set({
         name: form.name,
+        email : form.email,
+        profilePhoto : "",
       });
 
       //Fetch user profile and set in state
       dispatch("fetchUserProfile", user);
     },
+    async logout({ commit }) {
+      await fb.auth.signOut();
+
+      //Clear userProfile and redirect to /login
+      commit("setUserProfile", []);
+      router.push("/login");
+    },
+    // User Profile - Fetch,update,uploadPhoto,RemovePhoto
+    async fetchUserProfile({ commit }, user) {
+      //Fetch user profile
+      const userProfile = await fb.usersCollection.doc(user.uid).get();
+
+      //set user profile in state
+      commit("setUserProfile", userProfile.data());
+
+      //Change route to dashboard
+      if (router.currentRoute.path === "/login") {
+        router.push("/");
+      }
+    },
+    async updateProfile({ dispatch }, user) {
+      const userId = fb.auth.currentUser.uid
+      //Update user object 
+      await fb.usersCollection.doc(userId).update({
+        name: user.name
+      })
+
+      dispatch('fetchUserProfile', { uid: userId })
+
+      //update all posts by user
+      const postDocs = await fb.postsCollection.where('userId', '==', userId).get()
+      postDocs.forEach(doc => {
+        fb.postsCollection.doc(doc.id).update({
+          userName: user.name
+        })
+      })
+
+      //Update all comments by the user
+      const commentDocs = await fb.commentsCollection.where('userId', '==', userId).get()
+      commentDocs.forEach(doc => {
+        fb.commentsCollection.doc(doc.id).update({
+          userName: user.name
+        })
+      })
+    },
+    async uploadUserProfilePhoto({dispatch},url){
+      const userId = fb.auth.currentUser.uid;
+
+      //Update profile photo in user object
+      await fb.usersCollection.doc(userId).update({
+        profilePhoto : url
+      })
+
+      //Call action to update profile in state
+      dispatch('fetchUserProfile', { uid: userId })
+    },
+    async removeUserProfilePhoto({dispatch}){
+      const userId = fb.auth.currentUser.uid;
+
+      //Remove Photo link
+      await fb.usersCollection.doc(userId).update({
+        profilePhoto : ""
+      })
+
+      //Call action to update profile in state
+      dispatch('fetchUserProfile', { uid: userId })
+    },
+    //Post - Create,Like
     async createPost({ state }, post) {
       await fb.postsCollection.add({
         createdOn: new Date(),
@@ -92,50 +163,6 @@ const store = new Vuex.Store({
       });
     },
     /* eslint-enable no-unused-vars */
-    async fetchUserProfile({ commit }, user) {
-      //Fetch user profile
-      const userProfile = await fb.usersCollection.doc(user.uid).get();
-
-      //set user profile in state
-      commit("setUserProfile", userProfile.data());
-
-      //Change route to dashboard
-      if (router.currentRoute.path === "/login") {
-        router.push("/");
-      }
-    },
-    async logout({ commit }) {
-      await fb.auth.signOut();
-
-      //Clear userProfile and redirect to /login
-      commit("setUserProfile", []);
-      router.push("/login");
-    },
-    async updateProfile({ dispatch }, user) {
-      const userId = fb.auth.currentUser.uid
-      //Update user object 
-      await fb.usersCollection.doc(userId).update({
-        name: user.name
-      })
-
-      dispatch('fetchUserProfile', { uid: userId })
-
-      //update all posts by user
-      const postDocs = await fb.postsCollection.where('userId', '==', userId).get()
-      postDocs.forEach(doc => {
-        fb.postsCollection.doc(doc.id).update({
-          userName: user.name
-        })
-      })
-
-      //Update all comments by the user
-      const commentDocs = await fb.commentsCollection.where('userId', '==', userId).get()
-      commentDocs.forEach(doc => {
-        fb.commentsCollection.doc(doc.id).update({
-          userName: user.name
-        })
-      })
-    }
   },
   modules: {},
 });

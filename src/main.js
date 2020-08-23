@@ -7,7 +7,7 @@ import { auth } from './firebase'
 //Plugins
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
-
+import 'animate.css/animate.css'
 //SCSS
 import './assets/scss/app.scss'
 //Use the plugin

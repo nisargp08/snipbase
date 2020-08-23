@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <site-nav v-if="showNav"></site-nav>
+    <transition enter-active-class="animate__animated animate__fadeIn" leave-active-class="animate__animated animate__fadeOut" mode="out-in">
     <router-view/>
+    </transition>
   </div>
 </template>
 

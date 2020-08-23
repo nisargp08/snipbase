@@ -1,6 +1,7 @@
 import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 // firebase init
 const firebaseConfig = {
@@ -25,6 +26,12 @@ const postsCollection = db.collection("posts");
 const commentsCollection = db.collection("comments");
 const likesCollection = db.collection("likes");
 
+//Storage References
+const storage = firebase.storage();
+const storageRef = firebase.storage().ref();
+//Upload Paths
+const profilePhoto = "Users/Profile_Photo/";
+
 // export utils/refs
 export {
   db,
@@ -33,4 +40,7 @@ export {
   postsCollection,
   commentsCollection,
   likesCollection,
+  storage,
+  storageRef,
+  profilePhoto,
 };

@@ -12,7 +12,7 @@
         <!-- Left Navigation items -->
         <template slot="start">
             <b-navbar-item to="/" tag="router-link" exact-active-class="exact-active">Dashboard</b-navbar-item>
-            <b-navbar-item :to="{name : 'Create Post'}" tag="router-link" exact-active-class="exact-active">Add Post</b-navbar-item>
+            <b-navbar-item :to="{name : 'CreatePost'}" tag="router-link" exact-active-class="exact-active">Add Post</b-navbar-item>
         </template>
         <!-- Right Navigation items -->
         <template slot="end">

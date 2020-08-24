@@ -9,7 +9,7 @@
                     <div class="columns is-multiline">
                         <div class="column is-4-desktop is-6-tablet" v-for="post in posts" :key="post.id">
                             <div class="card eq-height-cards">
-                              <!-- <div class="card-image">
+                                <!-- <div class="card-image">
                                     <div class="image is-4by3">
                                         <img src="https://source.unsplash.com/random/1280x960" alt="Blog Image">
                                     </div>
@@ -33,8 +33,8 @@
                                             <i class="fas fa-comments has-text-primary pr-2"></i>
                                             Comments ({{ post.comments}})
                                         </a> -->
-                                         <i class="fas fa-comments has-text-primary pr-2"></i>
-                                            Comments ({{ post.comments}})
+                                        <i class="fas fa-comments has-text-primary pr-2"></i>
+                                        Comments ({{ post.comments}})
                                     </span>
                                     <span class="card-footer-item">
                                         <a @click="likePost(post.id,post.likes)">
@@ -65,6 +65,7 @@
 <script>
 import { mapState } from "vuex";
 import moment from "moment";
+// import axios from 'axios';
 import Comments from "./Posts/Comments.vue";
 
 export default {
@@ -78,7 +79,11 @@ export default {
     methods: {
         //View full post
         viewPost(postId) {
-            this.$router.push({ path: `/post/${postId}` }); // -> /user/123
+            this.$router.push({ name: 'ViewPost', params: { postId } })
+            // this.$router.push({
+            //     path : `/post/${postId}`
+                
+            // }); // -> /user/123
         },
         //Toggle Comments Modal
         toggleCommentsModal(post) {

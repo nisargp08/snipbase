@@ -19,7 +19,7 @@ Vue.use(VueRouter)
   },
   {
     path : '/post/create',
-    name : 'Create Post',
+    name : 'CreatePost',
     component : () => import(/* webpackChunkName : "CreatePost"*/ '../views/Posts/CreatePost.vue'),
     //Authenticated
     meta : {
@@ -27,9 +27,24 @@ Vue.use(VueRouter)
     }
   },
   {
-    path : '/post/:id',
-    name : 'View Post',
+    path : '/post/:postId',
+    name : 'ViewPost',
+    props : true,
     component : () => import(/*webpackChunkName : "CreatePost"*/ '../views/Posts/Post.vue'),
+    //Authenticated
+    meta : {
+      requiresAuth : true
+    }
+  },
+  {
+    path : '/post/:postId/edit',
+    name : 'EditPost',
+    props : true,
+    component : () => import(/*webpackChunkName : "EditPost"*/ '../views/Posts/EditPost.vue'),
+    //Authenticated
+    meta : {
+      requiresAuth : true
+    }
   },
   {
     path : '/login',

@@ -128,6 +128,7 @@ const store = new Vuex.Store({
       //Call action to update profile in state
       dispatch('fetchUserProfile', { uid: userId })
     },
+    /* eslint-disable no-unused-vars */
     //Post - Create,Like
     async createPost({ state }, post) {
       await fb.postsCollection.add({
@@ -140,7 +141,23 @@ const store = new Vuex.Store({
         likes: 0,
       });
     },
-    /* eslint-disable no-unused-vars */
+    async editPost({state}, post){
+      await fb.postsCollection.doc(post.id).update({
+        title : post.title,
+        content : post.content
+      })
+    },
+    deletePost({state},postId){
+      return new Promise((resolve,reject) => {
+        fb.postsCollection.doc(postId).delete().then(response => {
+          //Post deleted
+          resolve(response); // Let the calling function know that http is done. You may send some data back
+        }, error => {
+           // http failed, let the calling function know that action did not work out
+           reject(error);
+        })
+      })
+    },
     async likePost({ commit }, post) {
       const userId = fb.auth.currentUser.uid;
       const docId = `${userId}_${post.id}`;
@@ -163,6 +180,11 @@ const store = new Vuex.Store({
       });
     },
     /* eslint-enable no-unused-vars */
+  },
+  getters : {
+    getSinglePost : (state) => (id) => {
+      return state.posts.find(post => post.id === id);
+    } 
   },
   modules: {},
 });

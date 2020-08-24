@@ -17,6 +17,10 @@
                         <div class="media-center">
                             <img src="http://www.radfaces.com/images/avatars/daria-morgendorffer.jpg" class="author-image" alt="Author Image" />
                         </div>
+                        <div class="post-operations buttons">
+                            <b-button @click="confirmRemove(post.id)" type="is-danger" size="is-small">Delete</b-button>
+                            <b-button @click="editPost(post.id)" type="is-success" size="is-small">Edit</b-button>
+                        </div>
                         <div class="media-content has-text-centered">
                             <p class="title article-title is-size-3-desktop is-size-4-touch">{{ post.title }}</p>
                             <p class="subtitle is-6 article-subtitle">
@@ -115,9 +119,6 @@ import { helperFunctions } from "@/mixins/helperFunctions.js";
 export default {
     name: "post",
     mixins: [helperFunctions],
-    components: {
-        GridLoader,
-    },
     data() {
         return {
             //Tracking variables
@@ -127,6 +128,17 @@ export default {
             comment: "",
         };
     },
+    components: {
+        GridLoader,
+    },
+    props: {
+        postId: {
+            type: String,
+            required: true
+        }
+    },
+    /* eslint-disable no-unused-vars */
+    /* eslint-enable no-unused-vars */
     created() {
         // fetch the data when the view is created and the data is
         // already being observed
@@ -159,7 +171,7 @@ export default {
             let post;
             this.error = this.post = null;
             this.loading = true;
-            const fetchedId = this.$route.params.id;
+            const fetchedId = this.postId;
             let comments = [];
             //Fetch post
             this.$store.state.posts.filter(function (single) {
@@ -219,6 +231,41 @@ export default {
             //Clear Comment Box
             this.comment = "";
         },
+        //Edit post
+        editPost(postId) {
+            this.$router.push({
+                name: 'EditPost',
+                params: {
+                    postId: postId
+                }
+            })
+        },
+        //Confirm Dialog for delete post
+        confirmRemove(postId) {
+            this.$buefy.dialog.confirm({
+                title: 'Delete Post',
+                message: 'Are you sure you want to <b>delete</b> this post? This action cannot be undone.',
+                confirmText: 'Remove',
+                type: 'is-danger',
+                hasIcon: true,
+                iconPack: 'fas',
+                icon: 'exclamation-circle',
+                onConfirm: () => this.removePost(postId)
+            })
+        },
+        //Remove Post on confirm
+        removePost(postId) {
+            if (postId) {
+                //Dispatch delete action
+                this.$store.dispatch('deletePost', postId).then(() => {
+                    //Successfully delete
+                    this.$router.push({ name: 'Dashboard' });
+                    this.generateToast("Post Successfully Deleted !", "is-success");
+                }, error => {
+                    this.generateToast(error, "is-danger");
+                })
+            }
+        }
     },
 };
 </script>
